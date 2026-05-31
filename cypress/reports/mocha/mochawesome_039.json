@@ -1,0 +1,224 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 7,
+    "passes": 6,
+    "pending": 0,
+    "failures": 1,
+    "start": "2026-05-31T01:41:58.866Z",
+    "end": "2026-05-31T01:42:19.468Z",
+    "duration": 20602,
+    "testsRegistered": 7,
+    "passPercent": 85.71428571428571,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "ec6bf981-348a-4be5-9b39-c00900d6d909",
+      "title": "",
+      "fullFile": "cypress\\e2e\\ui\\items-ui.cy.ts",
+      "file": "cypress\\e2e\\ui\\items-ui.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "8bb496fc-5d01-46ec-9bb8-164b9a132095",
+          "title": "Items UI Tests with API Interception",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "TC-UI-ITEM-001: items page loads",
+              "fullTitle": "Items UI Tests with API Interception TC-UI-ITEM-001: items page loads",
+              "timedOut": null,
+              "duration": 1266,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "itemsPage.assertLoaded();",
+              "err": {},
+              "uuid": "c4f544e5-359c-48f0-bee9-ea8bcd9d64a9",
+              "parentUUID": "8bb496fc-5d01-46ec-9bb8-164b9a132095",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "TC-UI-ITEM-002: add item button opens form/modal",
+              "fullTitle": "Items UI Tests with API Interception TC-UI-ITEM-002: add item button opens form/modal",
+              "timedOut": null,
+              "duration": 11054,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains(/add item/i, { timeout: 10000 })\n    .should(\"be.visible\")\n    .click();\ncy.get('input[name=\"title\"], input[placeholder*=\"Title\"], input')\n    .first()\n    .should(\"be.visible\");",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: Expected to find content: '/add item/i' but never did.",
+                "estack": "AssertionError: Timed out retrying after 10000ms: Expected to find content: '/add item/i' but never did.\n    at Context.eval (webpack:///./cypress/e2e/ui/items-ui.cy.ts:18:7)",
+                "diff": null
+              },
+              "uuid": "80c25a44-d938-430d-89a2-7e63b3c715ad",
+              "parentUUID": "8bb496fc-5d01-46ec-9bb8-164b9a132095",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "TC-UI-ITEM-003: create item with title and description",
+              "fullTitle": "Items UI Tests with API Interception TC-UI-ITEM-003: create item with title and description",
+              "timedOut": null,
+              "duration": 2190,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const title = `UI Item ${Date.now()}`;\nconst description = \"Created from visible Chrome test\";\ncy.intercept(\"POST\", \"**/api/v1/items/**\").as(\"createItem\");\nitemsPage.createItem(title, description);\ncy.wait(\"@createItem\").then((interception) => {\n    expect(interception.response?.statusCode).to.be.oneOf([200, 201]);\n    expect(interception.response?.body).to.have.property(\"title\", title);\n    expect(interception.response?.body).to.have.property(\"description\", description);\n});\nitemsPage.assertItemVisible(title);",
+              "err": {},
+              "uuid": "61d46ec0-942a-4167-8711-a92e4bb041ee",
+              "parentUUID": "8bb496fc-5d01-46ec-9bb8-164b9a132095",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "TC-UI-ITEM-004: create item with title only",
+              "fullTitle": "Items UI Tests with API Interception TC-UI-ITEM-004: create item with title only",
+              "timedOut": null,
+              "duration": 1666,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const title = `UI Title Only ${Date.now()}`;\ncy.intercept(\"POST\", \"**/api/v1/items/**\").as(\"createItem\");\nitemsPage.openAddModal();\nitemsPage.fillItem(title);\nitemsPage.save();\ncy.wait(\"@createItem\").then((interception) => {\n    expect(interception.response?.statusCode).to.be.oneOf([200, 201]);\n    expect(interception.response?.body.title).to.eq(title);\n});\nitemsPage.assertItemVisible(title);",
+              "err": {},
+              "uuid": "de0c7301-fd4a-4abc-8ff4-22d7c2b984cf",
+              "parentUUID": "8bb496fc-5d01-46ec-9bb8-164b9a132095",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "TC-UI-ITEM-005: missing title keeps the item form open",
+              "fullTitle": "Items UI Tests with API Interception TC-UI-ITEM-005: missing title keeps the item form open",
+              "timedOut": null,
+              "duration": 1164,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "itemsPage.openAddModal();\nitemsPage.save();\ncy.get('input[name=\"title\"], textarea[name=\"title\"]').should(\"exist\");",
+              "err": {},
+              "uuid": "38f55415-9a81-4db0-8a7e-c493483bcd55",
+              "parentUUID": "8bb496fc-5d01-46ec-9bb8-164b9a132095",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "TC-UI-ITEM-006: cancel add item closes form without creating data",
+              "fullTitle": "Items UI Tests with API Interception TC-UI-ITEM-006: cancel add item closes form without creating data",
+              "timedOut": null,
+              "duration": 2049,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const title = `Cancelled ${Date.now()}`;\nitemsPage.openAddModal();\nitemsPage.fillItem(title, \"This should not be saved\");\nitemsPage.cancel();\ncy.contains(title).should(\"not.exist\");",
+              "err": {},
+              "uuid": "07305e0c-0466-42ee-8922-5eff27c298c5",
+              "parentUUID": "8bb496fc-5d01-46ec-9bb8-164b9a132095",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "TC-UI-ITEM-007: API interception validates read items response",
+              "fullTitle": "Items UI Tests with API Interception TC-UI-ITEM-007: API interception validates read items response",
+              "timedOut": null,
+              "duration": 1055,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.reload();\ncy.wait(\"@getItems\").then((interception) => {\n    expect(interception.response?.statusCode).to.eq(200);\n    expect(interception.response?.body).to.have.property(\"data\");\n    expect(interception.response?.body).to.have.property(\"count\");\n    expect(interception.response?.body.data).to.be.an(\"array\");\n    expect(interception.response?.body.count).to.be.a(\"number\");\n});",
+              "err": {},
+              "uuid": "d6c02c04-23ba-461e-99e2-dd7cd1e95080",
+              "parentUUID": "8bb496fc-5d01-46ec-9bb8-164b9a132095",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "c4f544e5-359c-48f0-bee9-ea8bcd9d64a9",
+            "61d46ec0-942a-4167-8711-a92e4bb041ee",
+            "de0c7301-fd4a-4abc-8ff4-22d7c2b984cf",
+            "38f55415-9a81-4db0-8a7e-c493483bcd55",
+            "07305e0c-0466-42ee-8922-5eff27c298c5",
+            "d6c02c04-23ba-461e-99e2-dd7cd1e95080"
+          ],
+          "failures": [
+            "80c25a44-d938-430d-89a2-7e63b3c715ad"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 20444,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports/mocha",
+        "json": true,
+        "html": false,
+        "overwrite": false
+      },
+      "version": "6.3.2"
+    }
+  }
+}

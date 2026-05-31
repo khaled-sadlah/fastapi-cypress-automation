@@ -14,11 +14,9 @@ describe("Items UI Tests with API Interception", () => {
   });
 
   it("TC-UI-ITEM-002: add item button opens form/modal", () => {
-    cy.contains(/add item/i, { timeout: 10000 })
-      .should("be.visible")
-      .click();
+    itemsPage.openAddModal();
 
-    cy.get('input[name="title"], input[placeholder*="Title"], input')
+    cy.get('input[name="title"], textarea[name="title"], input')
       .first()
       .should("be.visible");
   });
