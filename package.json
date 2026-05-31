@@ -1,0 +1,18 @@
+{
+  "scripts": {
+    "cy:open": "cypress open --e2e --browser chrome",
+    "cy:chrome": "cypress run --headed --browser chrome --reporter mochawesome --reporter-options reportDir=cypress/reports/mocha,json=true,html=false,overwrite=false",
+    "cy:run": "cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports/mocha,json=true,html=false,overwrite=false",
+    "cy:report:merge": "mochawesome-merge cypress/reports/mocha/*.json > cypress/reports/mocha/merged-report.json",
+    "cy:report:html": "marge cypress/reports/mocha/merged-report.json --reportDir cypress/reports/html --inline",
+    "test:chrome": "npm run cy:chrome"
+  },
+  "devDependencies": {
+    "cypress": "^15.16.0",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^5.0.0",
+    "mochawesome-report-generator": "^6.2.0",
+    "typescript": "^5.6.3",
+    "@types/node": "^22.10.2"
+  }
+}

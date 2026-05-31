@@ -1,0 +1,10 @@
+1) Copy these files into your fastapi-cypress-ready-project folder.
+2) Make sure frontend is running on http://localhost:5173 and backend is running on http://localhost:8000.
+3) Run:
+   npm install
+   npm run cy:chrome
+
+This opens Chrome in headed mode so you can watch the tests running.
+
+If you want the Cypress interactive window:
+   npm run cy:open

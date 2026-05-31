@@ -1,0 +1,181 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 5,
+    "passes": 5,
+    "pending": 0,
+    "failures": 0,
+    "start": "2026-05-31T00:46:40.584Z",
+    "end": "2026-05-31T00:46:45.813Z",
+    "duration": 5229,
+    "testsRegistered": 5,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "f83b63a0-9578-4e87-a162-95defc742b84",
+      "title": "",
+      "fullFile": "cypress\\e2e\\ui\\dashboard-ui.cy.ts",
+      "file": "cypress\\e2e\\ui\\dashboard-ui.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "a4fd32fa-dbe7-4768-b58a-433e8594ed37",
+          "title": "Dashboard UI Tests",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "TC-UI-DASH-001: dashboard loads after login",
+              "fullTitle": "Dashboard UI Tests TC-UI-DASH-001: dashboard loads after login",
+              "timedOut": null,
+              "duration": 1138,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "dashboardPage.assertLoaded();",
+              "err": {},
+              "uuid": "b92b11a1-63c1-45d5-9103-6dad488e0a7c",
+              "parentUUID": "a4fd32fa-dbe7-4768-b58a-433e8594ed37",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "TC-UI-DASH-002: username or welcome text is displayed",
+              "fullTitle": "Dashboard UI Tests TC-UI-DASH-002: username or welcome text is displayed",
+              "timedOut": null,
+              "duration": 989,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains(new RegExp(Cypress.env(\"userName\") + \"|hi|welcome\", \"i\")).should(\"be.visible\");",
+              "err": {},
+              "uuid": "dc50d069-6023-4082-a492-d448271d40f2",
+              "parentUUID": "a4fd32fa-dbe7-4768-b58a-433e8594ed37",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "TC-UI-DASH-003: sidebar or navigation options are visible",
+              "fullTitle": "Dashboard UI Tests TC-UI-DASH-003: sidebar or navigation options are visible",
+              "timedOut": null,
+              "duration": 957,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "dashboardPage.assertSidebarVisible();",
+              "err": {},
+              "uuid": "2f3b2841-8546-4e69-b981-5a68433e0b17",
+              "parentUUID": "a4fd32fa-dbe7-4768-b58a-433e8594ed37",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "TC-UI-DASH-004: user can navigate to Items page",
+              "fullTitle": "Dashboard UI Tests TC-UI-DASH-004: user can navigate to Items page",
+              "timedOut": null,
+              "duration": 1067,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "dashboardPage.goToItems();\ncy.url().should(\"include\", \"/items\");\ncy.contains(/items/i).should(\"be.visible\");",
+              "err": {},
+              "uuid": "4db25e29-e6b0-447a-88d0-5e2ed2a7e7f9",
+              "parentUUID": "a4fd32fa-dbe7-4768-b58a-433e8594ed37",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "TC-UI-DASH-005: user information appears somewhere in the logged-in area",
+              "fullTitle": "Dashboard UI Tests TC-UI-DASH-005: user information appears somewhere in the logged-in area",
+              "timedOut": null,
+              "duration": 967,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains(new RegExp(Cypress.env(\"userEmail\") + \"|\" + Cypress.env(\"userName\"), \"i\")).should(\"exist\");",
+              "err": {},
+              "uuid": "19f01828-cdf2-4301-9d8d-9b49f87b398c",
+              "parentUUID": "a4fd32fa-dbe7-4768-b58a-433e8594ed37",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "b92b11a1-63c1-45d5-9103-6dad488e0a7c",
+            "dc50d069-6023-4082-a492-d448271d40f2",
+            "2f3b2841-8546-4e69-b981-5a68433e0b17",
+            "4db25e29-e6b0-447a-88d0-5e2ed2a7e7f9",
+            "19f01828-cdf2-4301-9d8d-9b49f87b398c"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 5118,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports/mocha",
+        "json": true,
+        "html": false,
+        "overwrite": false
+      },
+      "version": "6.3.2"
+    }
+  }
+}

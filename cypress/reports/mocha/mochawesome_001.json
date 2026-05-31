@@ -1,0 +1,205 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 6,
+    "passes": 5,
+    "pending": 0,
+    "failures": 1,
+    "start": "2026-05-31T00:13:21.250Z",
+    "end": "2026-05-31T00:13:22.150Z",
+    "duration": 900,
+    "testsRegistered": 6,
+    "passPercent": 83.33333333333334,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "4e9db95c-8891-4099-aee4-03a57b4ece33",
+      "title": "",
+      "fullFile": "cypress\\e2e\\api\\items-api.cy.ts",
+      "file": "cypress\\e2e\\api\\items-api.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "0a2d15b5-96d0-4136-997b-80ede119d8d0",
+          "title": "Items API Tests - Independent Test Data",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "TC-API-ITEM-001: read items returns JSON array",
+              "fullTitle": "Items API Tests - Independent Test Data TC-API-ITEM-001: read items returns JSON array",
+              "timedOut": null,
+              "duration": 273,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.request({\n    method: \"GET\",\n    url: `${apiUrl}/items/`,\n    headers: { Authorization: `Bearer ${token}` }\n}).then((response) => {\n    expect(response.status).to.eq(200);\n    expect(response.headers[\"content-type\"]).to.include(\"application/json\");\n    expect(response.body).to.be.an(\"array\");\n    if (response.body.length > 0) {\n        expect(response.body[0]).to.have.property(\"id\");\n        expect(response.body[0]).to.have.property(\"title\");\n    }\n});",
+              "err": {
+                "message": "AssertionError: expected { Object (data, count) } to be an array",
+                "estack": "AssertionError: expected { Object (data, count) } to be an array\n    at Context.eval (webpack:///./cypress/e2e/api/items-api.cy.ts:19:34)\n    at getRet (http://localhost:5173/__cypress/runner/cypress_runner.js:122946:20)\n    at tryCatcher (http://localhost:5173/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (http://localhost:5173/__cypress/runner/cypress_runner.js:4285:29)\n    at Context.thenFn (http://localhost:5173/__cypress/runner/cypress_runner.js:122957:66)\n    at Context.then (http://localhost:5173/__cypress/runner/cypress_runner.js:123208:21)",
+                "diff": null
+              },
+              "uuid": "5251f7c1-dc52-4ff3-a6d4-4b3b20ad5865",
+              "parentUUID": "0a2d15b5-96d0-4136-997b-80ede119d8d0",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "TC-API-ITEM-002: create item returns created item data",
+              "fullTitle": "Items API Tests - Independent Test Data TC-API-ITEM-002: create item returns created item data",
+              "timedOut": null,
+              "duration": 114,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const title = `API Create ${Date.now()}`;\nconst description = \"Checking response body, not only status code\";\ncy.createItem(token, title, description).then((item) => {\n    expect(item.id).to.exist;\n    expect(item.title).to.eq(title);\n    expect(item.description).to.eq(description);\n    cy.deleteItemById(token, item.id);\n});",
+              "err": {},
+              "uuid": "b7814476-3e1d-4108-968e-8df24244d0fe",
+              "parentUUID": "0a2d15b5-96d0-4136-997b-80ede119d8d0",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "TC-API-ITEM-003: get item by ID returns the same created item",
+              "fullTitle": "Items API Tests - Independent Test Data TC-API-ITEM-003: get item by ID returns the same created item",
+              "timedOut": null,
+              "duration": 111,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const title = `API Get ${Date.now()}`;\nconst description = \"Created before GET action\";\nlet itemId;\ncy.createItem(token, title, description).then((item) => {\n    itemId = item.id;\n    cy.request({\n        method: \"GET\",\n        url: `${apiUrl}/items/${itemId}`,\n        headers: { Authorization: `Bearer ${token}` }\n    }).then((response) => {\n        expect(response.status).to.eq(200);\n        expect(response.body.id).to.eq(itemId);\n        expect(response.body.title).to.eq(title);\n        expect(response.body.description).to.eq(description);\n    });\n}).then(() => {\n    cy.deleteItemById(token, itemId);\n});",
+              "err": {},
+              "uuid": "04409572-8c3c-431d-8446-d0d498f907e0",
+              "parentUUID": "0a2d15b5-96d0-4136-997b-80ede119d8d0",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "TC-API-ITEM-004: update item uses generated ID and verifies updated data",
+              "fullTitle": "Items API Tests - Independent Test Data TC-API-ITEM-004: update item uses generated ID and verifies updated data",
+              "timedOut": null,
+              "duration": 120,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "let itemId;\nconst originalTitle = `API Before Update ${Date.now()}`;\nconst updatedTitle = `API After Update ${Date.now()}`;\ncy.createItem(token, originalTitle, \"Original description\").then((item) => {\n    itemId = item.id;\n    cy.request({\n        method: \"PUT\",\n        url: `${apiUrl}/items/${itemId}`,\n        headers: { Authorization: `Bearer ${token}` },\n        body: { title: updatedTitle, description: \"Updated description\" },\n        failOnStatusCode: false\n    }).then((response) => {\n        expect(response.status).to.be.oneOf([200, 201]);\n        expect(response.body.id).to.eq(itemId);\n        expect(response.body.title).to.eq(updatedTitle);\n        expect(response.body.description).to.eq(\"Updated description\");\n    });\n}).then(() => {\n    cy.deleteItemById(token, itemId);\n});",
+              "err": {},
+              "uuid": "eafe3c2b-86e8-431e-8088-b14c4d321839",
+              "parentUUID": "0a2d15b5-96d0-4136-997b-80ede119d8d0",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "TC-API-ITEM-005: delete item creates data first then deletes by generated ID",
+              "fullTitle": "Items API Tests - Independent Test Data TC-API-ITEM-005: delete item creates data first then deletes by generated ID",
+              "timedOut": null,
+              "duration": 109,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "let itemId;\ncy.createItem(token, `API Delete ${Date.now()}`, \"Created only for delete test\").then((item) => {\n    itemId = item.id;\n    cy.deleteItemById(token, itemId).then((deleteResponse) => {\n        expect(deleteResponse.status).to.be.oneOf([200, 204]);\n    });\n}).then(() => {\n    cy.request({\n        method: \"GET\",\n        url: `${apiUrl}/items/${itemId}`,\n        headers: { Authorization: `Bearer ${token}` },\n        failOnStatusCode: false\n    }).then((response) => {\n        expect(response.status).to.be.oneOf([404, 400]);\n    });\n});",
+              "err": {},
+              "uuid": "1fd335eb-8202-472d-bbf8-60c788c69efb",
+              "parentUUID": "0a2d15b5-96d0-4136-997b-80ede119d8d0",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "TC-API-ITEM-006: create item without title returns validation error",
+              "fullTitle": "Items API Tests - Independent Test Data TC-API-ITEM-006: create item without title returns validation error",
+              "timedOut": null,
+              "duration": 86,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.request({\n    method: \"POST\",\n    url: `${apiUrl}/items/`,\n    headers: { Authorization: `Bearer ${token}` },\n    body: { description: \"Missing title\" },\n    failOnStatusCode: false\n}).then((response) => {\n    expect(response.status).to.be.oneOf([400, 422]);\n    expect(response.body).to.be.an(\"object\");\n    expect(JSON.stringify(response.body).toLowerCase()).to.match(/title|required|field|detail/);\n});",
+              "err": {},
+              "uuid": "d9a0efb3-2dbf-49ad-8a90-e3490aba52f9",
+              "parentUUID": "0a2d15b5-96d0-4136-997b-80ede119d8d0",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "b7814476-3e1d-4108-968e-8df24244d0fe",
+            "04409572-8c3c-431d-8446-d0d498f907e0",
+            "eafe3c2b-86e8-431e-8088-b14c4d321839",
+            "1fd335eb-8202-472d-bbf8-60c788c69efb",
+            "d9a0efb3-2dbf-49ad-8a90-e3490aba52f9"
+          ],
+          "failures": [
+            "5251f7c1-dc52-4ff3-a6d4-4b3b20ad5865"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 813,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports/mocha",
+        "json": true,
+        "html": false,
+        "overwrite": false
+      },
+      "version": "6.3.2"
+    }
+  }
+}
