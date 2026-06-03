@@ -10,8 +10,10 @@ export class ItemsPage {
   }
 
   openAddModal() {
-    cy.contains("button", /add/i).click();
-  }
+  cy.contains("button", /add item/i, { timeout: 15000 })
+    .should("be.visible")
+    .click();
+}
 
   fillItem(title: string, description?: string) {
     cy.get(itemSelectors.titleInput).clear().type(title);

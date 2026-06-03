@@ -1,11 +1,11 @@
 {
   "scripts": {
     "cy:open": "cypress open --e2e --browser chrome",
-    "cy:chrome": "cypress run --headed --browser chrome --reporter mochawesome --reporter-options reportDir=cypress/reports/mocha,json=true,html=false,overwrite=false",
-    "cy:run": "cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports/mocha,json=true,html=false,overwrite=false",
-    "cy:report:merge": "mochawesome-merge cypress/reports/mocha/*.json > cypress/reports/mocha/merged-report.json",
-    "cy:report:html": "marge cypress/reports/mocha/merged-report.json --reportDir cypress/reports/html --inline",
-    "test:chrome": "npm run cy:chrome"
+    "clean:reports": "if exist cypress\\reports rmdir /s /q cypress\\reports",
+    "cy:chrome": "cypress run --headed --browser chrome --reporter mochawesome --reporter-options reportDir=cypress/reports/mocha,reportFilename=mochawesome,html=false,json=true,overwrite=false",
+    "cy:merge": "mochawesome-merge \"cypress/reports/mocha/mochawesome*.json\" > cypress/reports/merged-report.json",
+    "cy:html": "marge cypress/reports/merged-report.json --reportDir cypress/reports/html --reportFilename final-report",
+    "test:report": "npm run clean:reports && npm run cy:chrome && npm run cy:merge && npm run cy:html"
   },
   "devDependencies": {
     "cypress": "^15.16.0",

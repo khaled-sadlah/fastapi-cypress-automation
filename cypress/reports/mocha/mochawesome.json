@@ -5,9 +5,9 @@
     "passes": 4,
     "pending": 0,
     "failures": 0,
-    "start": "2026-05-31T00:13:18.299Z",
-    "end": "2026-05-31T00:13:18.591Z",
-    "duration": 292,
+    "start": "2026-06-03T21:10:02.565Z",
+    "end": "2026-06-03T21:10:02.879Z",
+    "duration": 314,
     "testsRegistered": 4,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "78325e51-52ea-4ab7-ad55-a678ce4d90f8",
+      "uuid": "233621b6-6dc9-401d-b94c-592b9ea5681e",
       "title": "",
       "fullFile": "cypress\\e2e\\api\\auth-api.cy.ts",
       "file": "cypress\\e2e\\api\\auth-api.cy.ts",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "48a4ea05-6042-4ad4-bc2b-121611a33618",
+          "uuid": "2bc19476-74c8-469d-95b4-6c97f2836ae3",
           "title": "Authentication API Tests - Strong Assertions",
           "fullFile": "",
           "file": "",
@@ -38,7 +38,7 @@
               "title": "TC-API-AUTH-001: login returns a valid token JSON body",
               "fullTitle": "Authentication API Tests - Strong Assertions TC-API-AUTH-001: login returns a valid token JSON body",
               "timedOut": null,
-              "duration": 95,
+              "duration": 106,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -47,8 +47,8 @@
               "context": null,
               "code": "cy.request({\n    method: \"POST\",\n    url: `${apiUrl}/login/access-token`,\n    form: true,\n    body: { username: Cypress.env(\"userEmail\"), password: Cypress.env(\"userPassword\") }\n}).then((response) => {\n    expect(response.status).to.eq(200);\n    expect(response.headers[\"content-type\"]).to.include(\"application/json\");\n    expect(response.body).to.have.all.keys(\"access_token\", \"token_type\");\n    expect(response.body.access_token).to.be.a(\"string\").and.have.length.greaterThan(20);\n    expect(response.body.token_type.toLowerCase()).to.eq(\"bearer\");\n});",
               "err": {},
-              "uuid": "23949388-4be8-49ba-aae7-f3af9d5a93b4",
-              "parentUUID": "48a4ea05-6042-4ad4-bc2b-121611a33618",
+              "uuid": "49d95063-9139-4a2f-b42b-32e297b7dad8",
+              "parentUUID": "2bc19476-74c8-469d-95b4-6c97f2836ae3",
               "isHook": false,
               "skipped": false
             },
@@ -56,7 +56,7 @@
               "title": "TC-API-AUTH-002: invalid login returns error JSON body",
               "fullTitle": "Authentication API Tests - Strong Assertions TC-API-AUTH-002: invalid login returns error JSON body",
               "timedOut": null,
-              "duration": 68,
+              "duration": 70,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -65,8 +65,8 @@
               "context": null,
               "code": "cy.request({\n    method: \"POST\",\n    url: `${apiUrl}/login/access-token`,\n    form: true,\n    body: { username: Cypress.env(\"userEmail\"), password: \"wrong-password\" },\n    failOnStatusCode: false\n}).then((response) => {\n    expect(response.status).to.be.oneOf([400, 401, 422]);\n    expect(response.body).to.be.an(\"object\");\n    expect(JSON.stringify(response.body).toLowerCase()).to.match(/incorrect|invalid|detail|error/);\n});",
               "err": {},
-              "uuid": "f6c9ecef-b304-4261-845c-23bfa1242b00",
-              "parentUUID": "48a4ea05-6042-4ad4-bc2b-121611a33618",
+              "uuid": "7e14dde2-6fbb-442a-ae3e-1b7450545807",
+              "parentUUID": "2bc19476-74c8-469d-95b4-6c97f2836ae3",
               "isHook": false,
               "skipped": false
             },
@@ -74,7 +74,7 @@
               "title": "TC-API-AUTH-003: token can access current user data",
               "fullTitle": "Authentication API Tests - Strong Assertions TC-API-AUTH-003: token can access current user data",
               "timedOut": null,
-              "duration": 74,
+              "duration": 78,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -83,8 +83,8 @@
               "context": null,
               "code": "cy.apiLogin().then((token) => {\n    cy.request({\n        method: \"GET\",\n        url: `${apiUrl}/users/me`,\n        headers: { Authorization: `Bearer ${token}` }\n    }).then((response) => {\n        expect(response.status).to.eq(200);\n        expect(response.body).to.have.property(\"email\");\n        expect(response.body.email).to.eq(Cypress.env(\"userEmail\"));\n        expect(response.body).to.have.property(\"id\");\n    });\n});",
               "err": {},
-              "uuid": "c998d827-4c6b-4551-b330-bd132bcbbf61",
-              "parentUUID": "48a4ea05-6042-4ad4-bc2b-121611a33618",
+              "uuid": "ceb1eaf9-36f4-4d4c-9146-a67590a030d4",
+              "parentUUID": "2bc19476-74c8-469d-95b4-6c97f2836ae3",
               "isHook": false,
               "skipped": false
             },
@@ -92,7 +92,7 @@
               "title": "TC-API-AUTH-004: protected endpoint rejects missing token",
               "fullTitle": "Authentication API Tests - Strong Assertions TC-API-AUTH-004: protected endpoint rejects missing token",
               "timedOut": null,
-              "duration": 20,
+              "duration": 24,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -101,23 +101,23 @@
               "context": null,
               "code": "cy.request({\n    method: \"GET\",\n    url: `${apiUrl}/users/me`,\n    failOnStatusCode: false\n}).then((response) => {\n    expect(response.status).to.be.oneOf([401, 403]);\n    expect(response.body).to.be.an(\"object\");\n    expect(JSON.stringify(response.body).toLowerCase()).to.match(/not authenticated|unauthorized|detail/);\n});",
               "err": {},
-              "uuid": "004f8211-2380-4352-9364-533d2207f39d",
-              "parentUUID": "48a4ea05-6042-4ad4-bc2b-121611a33618",
+              "uuid": "bd25a000-19eb-489e-bae2-902920b58550",
+              "parentUUID": "2bc19476-74c8-469d-95b4-6c97f2836ae3",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "23949388-4be8-49ba-aae7-f3af9d5a93b4",
-            "f6c9ecef-b304-4261-845c-23bfa1242b00",
-            "c998d827-4c6b-4551-b330-bd132bcbbf61",
-            "004f8211-2380-4352-9364-533d2207f39d"
+            "49d95063-9139-4a2f-b42b-32e297b7dad8",
+            "7e14dde2-6fbb-442a-ae3e-1b7450545807",
+            "ceb1eaf9-36f4-4d4c-9146-a67590a030d4",
+            "bd25a000-19eb-489e-bae2-902920b58550"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 257,
+          "duration": 278,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
@@ -152,9 +152,10 @@
     "marge": {
       "options": {
         "reportDir": "cypress/reports/mocha",
-        "json": true,
+        "overwrite": false,
         "html": false,
-        "overwrite": false
+        "json": true,
+        "reportFilename": "mochawesome"
       },
       "version": "6.3.2"
     }

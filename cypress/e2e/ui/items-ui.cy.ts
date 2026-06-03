@@ -4,9 +4,20 @@ describe("Items UI Tests with API Interception", () => {
   const itemsPage = new ItemsPage();
 
   beforeEach(() => {
+    cy.clearCookies();
+    cy.clearLocalStorage();
+
     cy.uiLogin();
+
+    cy.url({ timeout: 15000 }).should("not.include", "/login");
+
     cy.intercept("GET", "**/api/v1/items/**").as("getItems");
+
     cy.visit("/items");
+
+    cy.url({ timeout: 15000 }).should("include", "/items");
+
+    cy.contains("h1, h2, h3", /items/i, { timeout: 15000 }).should("be.visible");
   });
 
   it("TC-UI-ITEM-001: items page loads", () => {
